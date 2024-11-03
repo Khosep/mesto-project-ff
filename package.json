@@ -1,0 +1,49 @@
+{
+  "name": "yp_front_spr5_js",
+  "version": "1.0.0",
+  "description": "Mesto - javascript project",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist && webpack",
+    "dev": "webpack serve",
+    "check": "prettier --check './**/*.{html,css,js}'",
+    "format": "prettier --write './**/*.{html,css,js}'",
+    "formatFile": "prettier --write",
+    "formatHTML": "prettier --write './**/*.html'",
+    "lint": "stylelint '**/*.css'",
+    "lintFix": "stylelint '**/*.css' --fix",
+    "checkAll": "npm run check && npm run lint",
+    "fixAll": "npm run format && npm run lintFix"
+  },
+  "keywords": [],
+  "author": "Kholkin Sergey",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Khosep/mesto-project-ff.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Khosep/mesto-project-ff/issues"
+  },
+  "homepage": "https://github.com/Khosep/mesto-project-ff#readme",
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "autoprefixer": "^10.4.20",
+    "babel-loader": "^9.2.1",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^7.1.2",
+    "cssnano": "^7.0.6",
+    "html-webpack-plugin": "^5.6.3",
+    "mini-css-extract-plugin": "^2.9.2",
+    "postcss-loader": "^8.1.1",
+    "prettier": "^3.3.3",
+    "stylelint": "^16.10.0",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
+  },
+  "dependencies": {
+    "core-js": "^3.39.0"
+  }
+}
