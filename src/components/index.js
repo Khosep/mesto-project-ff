@@ -1,3 +1,6 @@
+import '../pages/index.css'; // для webpack (и убрали подключение css в index.html)
+import {initialCards} from './cards.js';
+
 const cardTemplate = document.querySelector('#card-template').content;
 const placeList = document.querySelector('.places__list');
 
