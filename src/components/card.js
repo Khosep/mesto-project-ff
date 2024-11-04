@@ -1,5 +1,3 @@
-import {openPopup} from './modal.js';
-
 const cardTemplate = document.querySelector('#card-template').content;
 
 // Функция для создания и добавления карточки
@@ -35,13 +33,7 @@ function handleLikeClick(likeButton) {
 }
 
 // 3. Обрабатываем открытие попапа с картинкой (передается в функцию createCard)
-function handleOpenImagePopup(card) {
-    const imagePopup = document.querySelector('.popup__image');
-    const titlePopup = document.querySelector('.popup__caption');
-    imagePopup.src = card.link;
-    imagePopup.alt = titlePopup.textContent = card.name;
-    openPopup(document.querySelector('.popup_type_image'));
-}
+// СОГЛАСНО ЗАДАНИЮ, перенесена в index.js
 
 // Создаем partial функцию
 function createPartialCreateCard(deleteCardFunc, openImageFunc, clickLikeFunc) {
@@ -49,7 +41,5 @@ function createPartialCreateCard(deleteCardFunc, openImageFunc, clickLikeFunc) {
         return createCard (card, deleteCardFunc, openImageFunc, clickLikeFunc)
     };
 }
-// Задаем постоянные (неизменяемые) параметры для partial функции создания карточки
-const partialCreateCard = createPartialCreateCard(deleteCard, handleOpenImagePopup, handleLikeClick);
 
-export {partialCreateCard};
+export {createPartialCreateCard, deleteCard, handleLikeClick};
