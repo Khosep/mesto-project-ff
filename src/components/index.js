@@ -35,7 +35,7 @@ const cardNameField= cardForm['place-name'];
 const cardLinkField= cardForm.link;
 
 // Заполняем форму редактирования профиля текущими значениями
-const placeHolderProfilePopup = () => {
+const fillProfileForm = () => {
     profileNameField.value = profileTitle.textContent;
     profileDescriptionField.value = profileDescription.textContent;
 }
@@ -45,15 +45,13 @@ const handleProfileFormSubmit = (event) => {
     event.preventDefault();
     profileTitle.textContent = profileNameField.value;
     profileDescription.textContent = profileDescriptionField.value;
-    closePopup(document.querySelector('.popup_type_edit'));
+    closePopup(editProfilePopup);
 }
 
 // Обрабатываем отправку формы создания карточки
 const handleCardFormSubmit = async (event) => {
     event.preventDefault();
-    const card = {name: null, link: null};
-    card.name = cardNameField.value;
-    card.link = cardLinkField.value;
+    const card = {name: cardNameField.value, link: cardLinkField.value};
     placeList.prepend(partialCreateCard(card));
     closePopup(document.querySelector('.popup_type_new-card'));
     cardForm.reset() // очищаем форму
@@ -64,7 +62,7 @@ const handleCardFormSubmit = async (event) => {
 
 // Обработчик клика на кнопку открытия модального окна для редактирования профиля
 editProfileButton.addEventListener('click', () => {
-    placeHolderProfilePopup();
+    fillProfileForm();
     openPopup(editProfilePopup);
 });
 
