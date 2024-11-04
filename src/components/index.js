@@ -1,8 +1,11 @@
 import '../pages/index.css'; // для webpack (и убрать подключение css в index.html)
 
-import {partialCreateCard} from './card.js';
+import {createPartialCreateCard, deleteCard, handleLikeClick} from './card.js';
 import {openPopup, closePopup} from './modal.js';
 import {initialCards} from './cards.js';
+
+// Задаем постоянные (неизменяемые) параметры для partial функции создания карточки
+const partialCreateCard = createPartialCreateCard(deleteCard, handleOpenImagePopup, handleLikeClick);
 
 const placeList = document.querySelector('.places__list');
 
@@ -16,7 +19,7 @@ const addCartButton = document.querySelector('.profile__add-button');
 // Модальные окна
 const editProfilePopup = document.querySelector('.popup_type_edit');
 const addCardPopup = document.querySelector('.popup_type_new-card');
-//const openImagePopup = document.querySelector('.popup_type_image');
+const openImagePopup = document.querySelector('.popup_type_image');
 
 // Переменные профиля
 const profileTitle = document.querySelector('.profile__title');
@@ -35,7 +38,7 @@ const cardNameField= cardForm['place-name'];
 const cardLinkField= cardForm.link;
 
 // Заполняем форму редактирования профиля текущими значениями
-const placeHolderProfilePopup = () => {
+const fillProfileForm = () => {
     profileNameField.value = profileTitle.textContent;
     profileDescriptionField.value = profileDescription.textContent;
 }
@@ -45,18 +48,25 @@ const handleProfileFormSubmit = (event) => {
     event.preventDefault();
     profileTitle.textContent = profileNameField.value;
     profileDescription.textContent = profileDescriptionField.value;
-    closePopup(document.querySelector('.popup_type_edit'));
+    closePopup(editProfilePopup);
 }
 
 // Обрабатываем отправку формы создания карточки
 const handleCardFormSubmit = async (event) => {
     event.preventDefault();
-    const card = {name: null, link: null};
-    card.name = cardNameField.value;
-    card.link = cardLinkField.value;
+    const card = {name: cardNameField.value, link: cardLinkField.value};
     placeList.prepend(partialCreateCard(card));
     closePopup(document.querySelector('.popup_type_new-card'));
     cardForm.reset() // очищаем форму
+}
+
+// Обрабатываем открытие попапа с картинкой (передается в функцию createCard)
+function handleOpenImagePopup(card) {
+    const imagePopup = document.querySelector('.popup__image');
+    const titlePopup = document.querySelector('.popup__caption');
+    imagePopup.src = card.link;
+    imagePopup.alt = titlePopup.textContent = card.name;
+    openPopup(openImagePopup);
 }
 
 
@@ -64,7 +74,7 @@ const handleCardFormSubmit = async (event) => {
 
 // Обработчик клика на кнопку открытия модального окна для редактирования профиля
 editProfileButton.addEventListener('click', () => {
-    placeHolderProfilePopup();
+    fillProfileForm();
     openPopup(editProfilePopup);
 });
 

@@ -37,7 +37,7 @@ const handleOverlayClickPopup = (event) => {
     }
 };
 
-// Обработываем клик на кнопку закрытия окна (крестик в правом верхнем углу)
+// Обрабатываем клик на кнопку закрытия окна (крестик в правом верхнем углу)
 const handleCloseButton = (event) => {
     if (event.target.classList.contains('popup__close')) {
         closePopup(event.currentTarget);

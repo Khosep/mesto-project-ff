@@ -1,5 +1,3 @@
-import {openPopup} from './modal.js';
-
 const cardTemplate = document.querySelector('#card-template').content;
 
 // Функция для создания и добавления карточки
@@ -17,31 +15,25 @@ function createCard (card, deleteCardFunc, openImageFunc, clickLikeFunc) {
     cardTitle.textContent = card.name;
 
     cardDeleteButton.addEventListener('click', () => deleteCardFunc(cardElement));
-    cardImage.addEventListener('click', () => openImageFunc(cardImage, cardTitle.textContent));
+    cardImage.addEventListener('click', () => openImageFunc(card));
     cardLikeButton.addEventListener('click', () => clickLikeFunc(cardLikeButton));
 
     return cardElement;
 }
 
-// Обрабатываем клик по delete-кнопке (передается в функцию createCard)
+// ФУНКЦИИ, СВЯЗАННЫЕ С КАРТОЧКОЙ (ПЕРЕДАЮТСЯ В createCard)
+
+// 1. Обрабатываем клик по delete-кнопке (передается в функцию createCard)
 const deleteCard = (cardElement) => cardElement.remove();
 
-
-// Обрабатываем клик по like-кнопке (передается в функцию createCard)
+// 2. Обрабатываем клик по like-кнопке (передается в функцию createCard)
 function handleLikeClick(likeButton) {
     const classes = likeButton.classList;
     classes.toggle('card__like-button_is-active');
 }
 
-// Обрабатываем открытие попапа с картинкой (передается в функцию createCard)
-function handleOpenImagePopup(cardImage, titleText) {
-    const imagePopup = document.querySelector('.popup__image');
-    const titlePopup = document.querySelector('.popup__caption');
-    imagePopup.src = cardImage.src;
-    imagePopup.alt = cardImage.alt;
-    titlePopup.textContent = titleText;
-    openPopup(document.querySelector('.popup_type_image'));
-}
+// 3. Обрабатываем открытие попапа с картинкой (передается в функцию createCard)
+// СОГЛАСНО ЗАДАНИЮ, перенесена в index.js
 
 // Создаем partial функцию
 function createPartialCreateCard(deleteCardFunc, openImageFunc, clickLikeFunc) {
@@ -49,7 +41,5 @@ function createPartialCreateCard(deleteCardFunc, openImageFunc, clickLikeFunc) {
         return createCard (card, deleteCardFunc, openImageFunc, clickLikeFunc)
     };
 }
-// Задаем постоянные (неизменяемые) параметры
-const partialCreateCard = createPartialCreateCard(deleteCard, handleOpenImagePopup, handleLikeClick);
 
-export {partialCreateCard};
+export {createPartialCreateCard, deleteCard, handleLikeClick};

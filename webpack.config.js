@@ -27,9 +27,20 @@ module.exports = {
         exclude: '/node_modules/'
         },
         {
-        test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
         // переносит исходные файлы в конечную сборку в том же формате
-        type: 'asset/resource'
+        type: 'asset/resource',
+        // в папку images с измененнным названием
+        generator: {
+            filename: 'images/[name].[hash][ext]',
+            }
+        },
+                {
+        test: /\.(woff(2)?|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+        generator: {
+            filename: 'fonts/[name].[hash][ext]',
+            }
         },
         {
         test: /\.css$/,
