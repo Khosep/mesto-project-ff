@@ -6,6 +6,8 @@
   "scripts": {
     "build": "rm -rf dist && webpack",
     "dev": "webpack serve",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "check": "prettier --check './**/*.{html,css,js}'",
     "format": "prettier --write './**/*.{html,css,js}'",
     "formatFile": "prettier --write",
@@ -34,6 +36,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^7.1.2",
     "cssnano": "^7.0.6",
+    "gh-pages": "^6.2.0",
     "html-webpack-plugin": "^5.6.3",
     "mini-css-extract-plugin": "^2.9.2",
     "postcss-loader": "^8.1.1",
