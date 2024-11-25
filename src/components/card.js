@@ -53,8 +53,10 @@ function createCard(
 
 // 1. Обрабатывает клик по delete-кнопке (передается в функцию createCard)
 const deleteCard = async (cardElement, cardID, deleteCardAPI) => {
-  if (await deleteCardAPI(cardID)) {
-    cardElement.remove();
+  try {
+    if (await deleteCardAPI(cardID)) cardElement.remove();
+  } catch (error) {
+    console.error('Error in deleteCard', error);
   }
 };
 
@@ -66,13 +68,17 @@ const handleLikeClick = async (
   addLikeAPI,
   deleteLikeAPI
 ) => {
-  const classes = likeButton.classList;
-  const activeClass = 'card__like-button_is-active';
-  classes.toggle(activeClass);
-  const card = classes.contains(activeClass)
-    ? await addLikeAPI(cardID)
-    : await deleteLikeAPI(cardID);
-  likeCounter.textContent = card.likes.length;
+  try {
+    const classes = likeButton.classList;
+    const activeClass = 'card__like-button_is-active';
+    const card = classes.contains(activeClass)
+      ? await deleteLikeAPI(cardID)
+      : await addLikeAPI(cardID);
+    classes.toggle(activeClass);
+    likeCounter.textContent = card.likes.length;
+  } catch (error) {
+    console.error('Error in handleLikeClick', error);
+  }
 };
 
 // 3. Обрабатываем открытие попапа с картинкой (передается в функцию createCard)

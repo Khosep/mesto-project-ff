@@ -32,6 +32,9 @@ const editProfilePopup = document.querySelector('.popup_type_edit');
 const editAvatarPopup = document.querySelector('.popup_type_edit-avatar');
 const addCardPopup = document.querySelector('.popup_type_new-card');
 const openImagePopup = document.querySelector('.popup_type_image');
+// Элементы модального окна, отображающего картинку
+const popupImage = openImagePopup.querySelector('.popup__image');
+const popupTitle = openImagePopup.querySelector('.popup__caption');
 
 // Переменные профиля
 const profileAvatar = document.querySelector('.profile__image');
@@ -124,10 +127,8 @@ const handleCardFormSubmit = async (event) => {
 
 // Обрабатывает открытие попапа с картинкой (передается в функцию createCard)
 function handleOpenImagePopup(card) {
-  const imagePopup = document.querySelector('.popup__image');
-  const titlePopup = document.querySelector('.popup__caption');
-  imagePopup.src = card.link;
-  imagePopup.alt = titlePopup.textContent = card.name;
+  popupImage.src = card.link;
+  popupImage.alt = popupTitle.textContent = card.name;
   openPopup(openImagePopup);
 }
 
@@ -156,7 +157,6 @@ const handleFetchedInintialData = async (promise) => {
     const [cardsData, ProfileObj] = await promise;
     // Записываем в глобальную переменную id профиля
     profileID = ProfileObj._id;
-    const userID = ProfileObj._id;
     placeCards(cardsData);
     placeProfileData(ProfileObj);
   } catch (error) {
